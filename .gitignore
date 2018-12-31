@@ -4,3 +4,4 @@ common-utils/.settings/org.eclipse.core.resources.prefs
 common-utils/.project
 common-utils/.gitignore
 common-utils/.classpath
+common-utils/target
