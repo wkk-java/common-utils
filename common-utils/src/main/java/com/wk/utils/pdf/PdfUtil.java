@@ -11,15 +11,12 @@ import com.itextpdf.html2pdf.css.apply.impl.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.layout.font.FontProvider;
 
-import lombok.extern.log4j.Log4j;
-
 /**
  * html转PDF.
  * 
- * @author admin
+ * @author wk
  *
  */
-@Log4j
 public class PdfUtil {
 
 	/**
