@@ -1,4 +1,4 @@
-package com.wk.utils.xml;
+package com.wk.common;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,23 +35,16 @@ public class YamlParser {
 	}
 
 	/**
-	 * 转换成map
+	 * 转换为map配置
 	 * 
-	 * @param file      yaml文件
-	 * @param parseCase 转换大小写类型
+	 * @param inputStream 输入流
+	 * @param parseCase   转换类型
 	 * @return 配置map
 	 */
-	public static Map<String, String> parse2Map(File file, ParseCase parseCase) {
+	public static Map<String, String> parse2Map(InputStream inputStream, ParseCase parseCase) {
 		Map<String, String> allMap = new HashMap<String, String>();
 		Yaml yaml = new Yaml();
-		InputStream fileInputStream;
-		Map<String, Object> yamlMap = null;
-		try {
-			fileInputStream = new FileInputStream(file);
-			yamlMap = yaml.loadAs(fileInputStream, Map.class);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		Map<String, Object> yamlMap = yaml.loadAs(inputStream, Map.class);
 		Iterator<String> iterator = yamlMap.keySet().iterator();
 		while (iterator.hasNext()) {
 			String key = iterator.next();
@@ -59,6 +52,37 @@ public class YamlParser {
 			iteratorYml(allMap, map, key, parseCase);
 		}
 		return allMap;
+	}
+
+	/**
+	 * 转换成map
+	 * 
+	 * @param file      yaml文件
+	 * @param parseCase 转换大小写类型
+	 * @return 配置map
+	 */
+	public static Map<String, String> parse2Map(File file, ParseCase parseCase) {
+		try {
+			InputStream fileInputStream = new FileInputStream(file);
+			return parse2Map(fileInputStream, parseCase);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 转换成配置对象
+	 * 
+	 * @param inputStream 文件
+	 * @param parseCase   转换类型
+	 * @return 配置对象
+	 */
+	public static Properties parse2Properties(InputStream inputStream, ParseCase parseCase) {
+		Map<String, String> configMap = parse2Map(inputStream, parseCase);
+		Properties properties = new Properties();
+		properties.putAll(configMap);
+		return properties;
 	}
 
 	/**
