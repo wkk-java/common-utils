@@ -1,4 +1,4 @@
-package com.wk.common;
+package com.wk.utils.xml;
 
 import java.io.File;
 import java.io.FileInputStream;
